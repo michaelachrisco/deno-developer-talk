@@ -1,0 +1,28 @@
+name: Build and test
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install deno and ssvmup
+      run: |
+        curl -fsSL https://deno.land/x/install/install.sh | sh
+        curl https://raw.githubusercontent.com/second-state/ssvmup/master/installer/init.sh -sSf | sh
+    
+    - name: Build
+      run: ssvmup build --target deno
+      
+    - name: Test
+      run: |
+        $HOME/.deno/bin/deno run --allow-read --allow-env --unstable deno/test.ts
+        ssvmup clean
