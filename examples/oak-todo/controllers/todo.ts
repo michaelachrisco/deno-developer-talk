@@ -3,18 +3,17 @@ import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import Todo from "../interfaces/Todo.ts";
 // stubs
 import todos from "../stubs/todos.ts";
+import { getTodos } from "../services/todoService.js";
 
 export default {
     /**
      * @description Get all todos
      * @route GET /todos
      */
-    getAllTodos: ({ response }: { response: any }) => {
+    getAllTodos: async ({ response }: { response: any }) => {
+        let todos: Todo[] = await getTodos();
         response.status = 200;
-        response.body = {
-            success: true,
-            data: todos,
-        };
+        response.body = todos;
     },
     /**
        * @description Add a new todo
