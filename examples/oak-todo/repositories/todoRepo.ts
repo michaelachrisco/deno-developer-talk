@@ -5,7 +5,7 @@ import Todo from "../interfaces/Todo.ts";
 class TodoRepo {
     create(todo: Todo) {
         return client.query(
-            "INSERT INTO todos (todo, isCompleted) VALUES ($1, $2)",
+            "INSERT INTO todos (todo, isCompleted) VALUES ($1, $2) RETURNING *",
             todo.todo,
             todo.isCompleted,
         );

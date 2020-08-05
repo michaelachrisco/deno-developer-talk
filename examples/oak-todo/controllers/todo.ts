@@ -3,7 +3,7 @@ import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import Todo from "../interfaces/Todo.ts";
 // stubs
 import todos from "../stubs/todos.ts";
-import { getTodos } from "../services/todoService.js";
+import { getTodos, createTodo } from "../services/todoService.js";
 
 export default {
     /**
@@ -19,33 +19,35 @@ export default {
        * @description Add a new todo
        * @route POST /todos
        */
-    createTodo: async (
+      createTodo: async (
         { request, response }: { request: any; response: any },
-    ) => {
-        const body = await request.body();
+      ) => {
+        const { value : todoBody } = await request.body();
+        const todo: Todo = todoBody;
         if (!request.hasBody) {
-            response.status = 400;
-            response.body = {
-                success: false,
-                message: "No data provided",
-            };
-            return;
+          response.status = 400;
+          response.body = {
+            success: false,
+            message: "No data provided",
+          };
+          return;
         }
-
+    
         // if everything is fine then perform
         // operation and return todos with the
         // new data added.
         let newTodo: Todo = {
-            id: v4.generate(),
-            todo: body.value.todo,
-            isCompleted: false,
+          id: v4.generate(),
+          todo: (await todo).todo,
+          isCompleted: false,
         };
-        let data = [...todos, newTodo];
+        let todoRecord = await createTodo(newTodo);
+        let data = todoRecord;
         response.body = {
-            success: true,
-            data,
+          success: true,
+          data,
         };
-    },
+      },
     /**
    * @description Get todo by id
    * @route GET todos/:id

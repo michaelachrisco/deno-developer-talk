@@ -36,16 +36,24 @@ export const getTodo = async todoId => {
 };
 
 export const createTodo = async todoData => {
-  const newTodo = {
-    todo: String(todoData.todo),
-    isCompleted: "isCompleted" in todoData ? Boolean(todoData.isCompleted) : false,
-  };
+  const todos = await todoRepo.create(todoData);
 
-  await todoRepo.create(newTodo);
+  var result = new Array();
 
-  return newTodo.id;
+  todos.rows.map(todo => {
+    //TODO: Change this to Interface/class assignment.
+    //Column from postgres package messing up with dynamic fields.
+    //Example is js only, so sticking with that for now.
+    var obj = new Object();
+
+    todos.rowDescription.columns.map((el, i) => {
+      obj[el.name] = todo[i];
+    });
+    result.push(obj);
+  });
+
+  return result;
 };
-
 export const updateTodo = async (todoId, todoData) => {
   const todo = await getTodo(todoId);
   
