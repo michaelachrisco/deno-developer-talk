@@ -3,7 +3,7 @@ import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import Todo from "../interfaces/Todo.ts";
 // stubs
 import todos from "../stubs/todos.ts";
-import { getTodos, createTodo } from "../services/todoService.js";
+import { getTodos, createTodo, deleteTodo } from "../services/todoService.js";
 
 export default {
     /**
@@ -107,17 +107,18 @@ export default {
             data: newTodos,
         };
     },
-    deleteTodoById: (
+    deleteTodoById: async (
         { params, response }: { params: { id: string }; response: any },
     ) => {
-        const allTodos = todos.filter((t) => t.id !== params.id);
+        await deleteTodo(params.id);
 
         // remove the todo w.r.t id and return
         // remaining todos
+        let todos: Todo[] = await getTodos();
         response.status = 200;
         response.body = {
             success: true,
-            data: allTodos,
+            data: todos,
         };
     },
 };
