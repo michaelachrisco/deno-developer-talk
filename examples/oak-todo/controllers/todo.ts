@@ -1,29 +1,27 @@
 import { v4 } from "https://deno.land/std/uuid/mod.ts";
 // interfaces
 import Todo from "../interfaces/Todo.ts";
-// stubs
-import todos from "../stubs/todos.ts";
+import { getTodos, getTodo, createTodo, updateTodo, deleteTodo } from "../services/todoService.js";
 
 export default {
     /**
      * @description Get all todos
      * @route GET /todos
      */
-    getAllTodos: ({ response }: { response: any }) => {
+    getAllTodos: async ({ response }: { response: any }) => {
+        let todos: Todo[] = await getTodos();
         response.status = 200;
-        response.body = {
-            success: true,
-            data: todos,
-        };
+        response.body = todos;
     },
     /**
-       * @description Add a new todo
-       * @route POST /todos
-       */
+     * @description Add a new todo
+     * @route POST /todos
+     */
     createTodo: async (
         { request, response }: { request: any; response: any },
     ) => {
-        const body = await request.body();
+        const { value: todoBody } = await request.body();
+        const todo: Todo = todoBody;
         if (!request.hasBody) {
             response.status = 400;
             response.body = {
@@ -38,25 +36,24 @@ export default {
         // new data added.
         let newTodo: Todo = {
             id: v4.generate(),
-            todo: body.value.todo,
+            todo: (await todo).todo,
             isCompleted: false,
         };
-        let data = [...todos, newTodo];
+        let todoRecord = await createTodo(newTodo);
+        let data = todoRecord;
         response.body = {
             success: true,
             data,
         };
     },
     /**
-   * @description Get todo by id
-   * @route GET todos/:id
-   */
-    getTodoById: (
+     * @description Get todo by id
+     * @route GET todos/:id
+     */
+    getTodoById: async (
         { params, response }: { params: { id: string }; response: any },
     ) => {
-        const todo: Todo | undefined = todos.find((t) => {
-            return t.id === params.id;
-        });
+        const todo = await getTodo(params.id);
         if (!todo) {
             response.status = 404;
             response.body = {
@@ -84,7 +81,7 @@ export default {
             response: any,
         },
     ) => {
-        const todo: Todo | undefined = todos.find((t) => t.id === params.id);
+        const todo = await getTodo(params.id);
         if (!todo) {
             response.status = 404;
             response.body = {
@@ -96,27 +93,31 @@ export default {
 
         // if todo found then update todo
         const body = await request.body();
-        const updatedData: { todo?: string; isCompleted?: boolean } = body.value;
-        let newTodos = todos.map((t) => {
-            return t.id === params.id ? { ...t, ...updatedData } : t;
-        });
+        const updatedData: { id: string; todo?: string; isCompleted?: boolean } = body.value;
+
+        const newTodos = await updateTodo(params.id, updatedData);
         response.status = 200;
         response.body = {
             success: true,
             data: newTodos,
         };
     },
-    deleteTodoById: (
+    /**
+     * @description Delete todo by id
+     * @route DELETE todos/:id
+     */
+    deleteTodoById: async (
         { params, response }: { params: { id: string }; response: any },
     ) => {
-        const allTodos = todos.filter((t) => t.id !== params.id);
+        await deleteTodo(params.id);
 
         // remove the todo w.r.t id and return
         // remaining todos
+        let todos: Todo[] = await getTodos();
         response.status = 200;
         response.body = {
             success: true,
-            data: allTodos,
+            data: todos,
         };
     },
 };
