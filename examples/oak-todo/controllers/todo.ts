@@ -3,7 +3,7 @@ import { v4 } from "https://deno.land/std/uuid/mod.ts";
 import Todo from "../interfaces/Todo.ts";
 // stubs
 import todos from "../stubs/todos.ts";
-import { getTodos, createTodo, deleteTodo } from "../services/todoService.js";
+import { getTodos, getTodo, createTodo, deleteTodo } from "../services/todoService.js";
 
 export default {
     /**
@@ -52,12 +52,10 @@ export default {
    * @description Get todo by id
    * @route GET todos/:id
    */
-    getTodoById: (
+    getTodoById: async(
         { params, response }: { params: { id: string }; response: any },
     ) => {
-        const todo: Todo | undefined = todos.find((t) => {
-            return t.id === params.id;
-        });
+        const todo = await getTodo(params.id);
         if (!todo) {
             response.status = 404;
             response.body = {
