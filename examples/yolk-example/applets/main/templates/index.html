@@ -1,0 +1,42 @@
+{% extends "_base.html" %}
+
+{% block content %}
+	<div style="background-color: #ffd42a; border-bottom: 1px solid #d4aa00; display: flex;">
+		<div style="font-size: 1.5em; padding-left: 8px; padding-top: 12px; padding-bottom: 12px; font-weight: bold;"><a style="text-decoration: none; color: black" href="https://github.com/denjucks/yolk">Docs</a></div>
+	</div>
+
+	<div style="display: flex;">
+		<div style="margin: auto; display: flex; flex-direction: column; width: 70vw;">
+			<h1 style="text-align: center;">Yolk CLI: The Oak Framework with Batteries Included</h1>
+			<img src="/main/static/yolk.svg" style="width: 20vw; margin: auto; padding: 32px;">
+			<div>
+				<div>
+					Yolk CLI is a CLI tool that makes it very easy to create and run Oak web 
+					applications, with the goal of providing you with all of the technologies
+					commonly used when creating web applications, as well as an easy to use,
+					scalable, and easy to maintain structure for your web applications. The
+					project structure created by the Yolk CLI is very flexible, allowing you
+					to add and remove features easily. Projects created by the Yolk CLI are
+					batteries-included, providing dynamic links to many useful libraries used in web
+					applications that will be downloaded and cached on the first run of each
+					command.
+				</div>
+				<br>
+				<div>
+					The technology stack included in projects created by the Yolk CLI include:
+				</div>
+
+				<ul>
+					<li><a href="https://deno.land/x/oak/">Oak</a><br>The Koa-based web framework used in Yolk.</li>
+					<li><a href="https://deno.land/x/denon/">Denon</a><br>The Deno version of Nodemon.</li>
+					<li><a href="https://deno.land/x/denjucks/">Denjucks</a><br>A powerful and easily the use templating engine ported from Mozilla's Nunjucks library.</li>
+					<li><a href="https://deno.land/x/denodb/">DenoDB</a><br>An ORM library for Deno with support for many commonly used databases.</li>
+					<li><a href="https://deno.land/x/session/">Session</a><br>A session middleware for the Oak framework.</li>
+					<li><a href="https://deno.land/x/snelm/">Snelm</a><br>A security middleware for many deno web frameworks ported from the Helmet middleware for ExpressJS.</li>
+					<li><a href="https://deno.land/x/organ/">Organ</a><br>A logging middleware with similar syntax as the Morgan middleware for ExpressJS.</li>
+					<li><a href="https://deno.land/x/oak-query-parser-async/">Oak-Async-Query-Parser</a><br>A query string parser for Oak.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
