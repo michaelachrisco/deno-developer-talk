@@ -34,7 +34,7 @@ Example from Webassembly was based on prevous talks I gave on the subject here: 
 I am not including this code as its used as a reference on what webassembly can do for the web.
 
 ### Deno Desktop App
-Example web based decktop app (kind of like electron) using Rust and Deno.
+Example web based desktop app (kind of like electron) using Rust and Deno.
 
 To run: `deno run -A -r --unstable examples/deno-desktop-app/desktop_app.ts`
 If there are errors, you may need additional dependencies here: https://github.com/webview/webview_deno#building
