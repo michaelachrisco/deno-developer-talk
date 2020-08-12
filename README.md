@@ -40,3 +40,8 @@ Example web based desktop app (kind of like electron) using Rust and Deno.
 
 To run: `deno run -A -r --unstable examples/deno-desktop-app/desktop_app.ts`
 If there are errors, you may need additional dependencies here: https://github.com/webview/webview_deno#building
+
+### Deno TODO Desktop App
+Same as the above, except it uses an existing todo REST API to populate.
+
+To run: `deno run -A -r --unstable examples/deno-desktop-app/todo-app.ts`

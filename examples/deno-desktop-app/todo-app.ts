@@ -28,7 +28,7 @@ let html = `
 
 // Creating and configuring the webview
 const webview = new WebView({
-    title: "Deno Webview Example",
+    title: "Deno List Todos",
     url: "data:text/html," + html,
     width: 800,
     height: 600,
