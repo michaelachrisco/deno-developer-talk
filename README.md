@@ -1,6 +1,8 @@
 # Introduction to Deno
 Presentation is in google sides, PDF and PowerPoint formats. 
 
+https://docs.google.com/presentation/d/1_xaA8NMsMDVFT5Qd6vfTE6TxFH1s0ngapf5nNf8hvew/edit?usp=sharing
+
 ## Install
 https://deno.land/manual/getting_started/installation
 
@@ -16,7 +18,7 @@ Example taken from Deno deocumentation, showing an example web app:
 To run: `deno run --allow-net examples/intro/intro_world_server.ts`
 
 ### REST API: oak-todo
-Basic TODO app that interfaces with deno + oak + postgres. This example project was created using two tutorials and trying out different ORMs (no yet implemented).
+Basic TODO app that interfaces with deno + oak + postgres. This example project was created using two tutorials and trying out different ORMs (not yet implemented).
 
 Based on previous work here:
 https://www.freecodecamp.org/news/create-a-todo-api-in-deno-written-by-a-guy-coming-from-node/
