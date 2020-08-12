@@ -1,6 +1,8 @@
 # Introduction to Deno
 Presentation is in google sides, PDF and PowerPoint formats. 
 
+https://docs.google.com/presentation/d/1_xaA8NMsMDVFT5Qd6vfTE6TxFH1s0ngapf5nNf8hvew/edit?usp=sharing
+
 ## Install
 https://deno.land/manual/getting_started/installation
 
